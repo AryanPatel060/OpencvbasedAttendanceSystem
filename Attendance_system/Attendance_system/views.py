@@ -1,3 +1,4 @@
+from http.client import responses
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
@@ -9,6 +10,8 @@ from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 import os
 import datetime
+
+import cv2
 
 
 
@@ -92,5 +95,23 @@ def logoutmployee(request):
 
 
 
+def generateframe():
+    camera = cv2.Videocapture(0) 
+    while  True:
+        success , frame = camera.read()
+        if not success : 
+            break
+        else:
+            ret,buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+        yield(b'--frame\r\n'
+              b'Content-Type: image/jpeg\r\n\r\n'+frame + b'\r\n')
+        
+
+
 def adminpanel(request):
     return render(request ,'adminsystem.html')
+
+def getframe(request):
+    return responses(generateframe, mimetype = 'multipart/x-mixed-replace; boundery= frame')
+

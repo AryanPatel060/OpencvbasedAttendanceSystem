@@ -24,7 +24,6 @@ urlpatterns = [
     path('signup',views.signupemployee , name='signup'),
     path('logout',views.logoutmployee , name='logout'),
     path('adminpanel',views.adminpanel , name='adminpanel'),
-
-
+    path('getframe',views.getframe , name='getframe'),
 
 ]

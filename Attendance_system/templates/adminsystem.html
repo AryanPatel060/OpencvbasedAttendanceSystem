@@ -2,7 +2,10 @@
 {% block body %}
 
 admin panel
-<button onclick="startVideo()">Start Webcam</button>
+<div>
+<img src="{% url "getframe" %}" width = "50%" />
+</div>
+{% comment %} <button onclick="startVideo()">Start Webcam</button>
     <video id="video" autoplay></video>
     <script>
         // Function to access the user's webcam
@@ -25,6 +28,6 @@ admin panel
                 console.error('getUserMedia is not supported');
             }
         }
-    </script>
+    </script> {% endcomment %}
 
 {% endblock body %}
