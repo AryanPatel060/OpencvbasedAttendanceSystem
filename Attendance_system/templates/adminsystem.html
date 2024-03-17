@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body %}
+
+admin panel
+<button onclick="startVideo()">Start Webcam</button>
+    <video id="video" autoplay></video>
+    <script>
+        // Function to access the user's webcam
+        function startVideo() {
+            // Get the video element
+            var video = document.getElementById('video');
+
+            // Check if getUserMedia is available
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // Access the webcam
+                navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    // Display the webcam stream in the video element
+                    video.srcObject = stream;
+                })
+                .catch(function(error) {
+                    console.error('Error accessing webcam:', error);
+                });
+            } else {
+                console.error('getUserMedia is not supported');
+            }
+        }
+    </script>
+
+{% endblock body %}
